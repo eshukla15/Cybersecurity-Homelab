@@ -34,67 +34,34 @@ Include each VM in your repository README with the following fields: name, role,
 
 ### 1. **Attacker (Kali Linux)**
 - **Role:** Offensive toolkit / attacker workstation
-- **OS/Image:** Kali Linux (VM)
+- **OS:** Kali Linux (VM)
+- **Image file:** [Kali Linux (VM) ](https://www.kali.org/get-kali/#kali-virtual-machines)
 - **Purpose:** Scanning, enumeration, exploitation, payload crafting, web app testing
 - **Key tools:** Nmap, Metasploit, Burp Suite, Nikto, sqlmap, wget, curl, netcat, john
 - **Snapshot notes:** Keep a clean snapshot "kali-base" to revert after destructive tests
 
-> Example resume/portfolio line: *Used Kali as an attacker workstation for network enumeration and exploitation exercises (Nmap, Metasploit, Burp).*
 
 ---
 
 ### 2. **Vulnerable Target (Metasploitable / Ubuntu vulnerable VM)**
 - **Role:** Intentionally vulnerable host
-- **OS/Image:** Metasploitable 2 / custom vulnerable Ubuntu image
+- **OS** Metasploitable 2 / custom vulnerable Ubuntu image
+- **Image file** [Metasploitable 2 / custom vulnerable Ubuntu image](https://sourceforge.net/projects/metasploitable/)
 - **Purpose:** Practice exploitation, privilege escalation, web app vulnerabilities
 - **Key services:** FTP, SSH, MySQL, Apache, vulnerable web applications
 - **Snapshot notes:** Keep a pre-exploitation snapshot and a post-exploitation snapshot for analysis
 
-> Example resume/portfolio line: *Performed vulnerability scanning and exploitation on Metasploitable to practice manual and automated exploitation techniques.*
 
 ---
 
-### 3. **Analysis & Forensics (REMnux)**
-- **Role:** Malware analysis and triage
-- **OS/Image:** REMnux (Linux distro for malware analysis)
-- **Purpose:** Static and dynamic analysis of suspicious binaries, scripts, and documents; IOC extraction
-- **Key tools:** Ghidra/Cutter, YARA, Volatility, oledump, radare2, INetSim, Wireshark
-- **Snapshot notes:** Use isolated NAT networking or host-only adapter and snapshots when executing samples
-
-> Example resume/portfolio line: *Analyzed malicious documents and binaries using REMnux; extracted IOCs and created YARA rules.*
-
----
-
-### 4. **Windows Lab (Windows Server / Windows 10)**
+### 3. **Windows Lab (Windows Server / Windows 10)**
 - **Role:** Typical enterprise endpoint or server
 - **OS/Image:** Windows Server / Windows 10 VM
 - **Purpose:** Simulate AD, domain join, Windows privilege escalation, lateral movement, and Windows-specific attacks
 - **Key tools:** Sysinternals (Autoruns, Procmon), PowerShell, Windows Event Viewer, RDP
 - **Snapshot notes:** Keep snapshots before AD changes or group policy experiments
 
-> Example resume/portfolio line: *Simulated Windows domain attacks and defense using Windows Server and endpoint VMs; used Procmon and Event Viewer for forensic trails.*
 
----
-
-### 5. **Monitoring / SIEM (ELK / Splunk / Suricata)**
-- **Role:** Centralized logging and detection
-- **OS/Image:** Ubuntu (or dedicated SIEM appliance image)
-- **Purpose:** Collect logs and network data, visualize alerts and dashboards, test detection rules
-- **Key tools:** Elasticsearch, Logstash, Kibana (ELK), Filebeat, Suricata, Splunk (light)
-- **Snapshot notes:** Keep configurations in repo (sanitized) and export dashboards as JSON
-
-> Example resume/portfolio line: *Implemented ELK stack and Suricata to collect host and network telemetry and tuned detection rules.*
-
----
-
-### 6. **Optional: Mail/Phishing Server (Mailcatcher / SMTP honeypot)**
-- **Role:** Simulate email delivery and phishing tests
-- **OS/Image:** Lightweight Linux VM
-- **Purpose:** Test phishing landing pages, malicious attachments, and mail flow
-- **Key tools:** MailHog, Postfix (configured to localhost only), web server for landing pages
-- **Snapshot notes:** Never connect to the public mail network for phishing tests
-
----
 
 ## Network Architecture
 
@@ -106,7 +73,7 @@ Add a network diagram file to the repo (e.g., `network-diagram.png`). Describe w
 - Firewall / routing rules (if any)
 - Monitoring tap/port-mirroring placement (where Suricata/Zeek sees traffic)
 
-**Example text you can paste into README:**
+
 ```
 Topology: [Kali] -- [Internal Network 10.0.0.0/24] -- [Targets: Metasploitable (10.0.0.10), Windows (10.0.0.11), REMnux (10.0.0.12)]
 SIEM/IDS: Suricata/ELK connected to internal switch mirror to capture traffic from attacker and targets.
@@ -116,8 +83,6 @@ Host-only adapter used for isolated communication; NAT adapter used for internet
 ---
 
 ## IP Addressing: Public vs Private, Static vs Dynamic
-
-Explain the difference clearly for reviewers/interviewers. Provide examples and what typical command outputs show.
 
 ### Public vs Private IPs (short)
 - **Private IPs** are used inside local networks and are not routable on the public internet. Common ranges include `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`.
@@ -154,10 +119,6 @@ Notes:
 - The private IPs above are in the 10.0.0.0/24 subnet and are not directly reachable from the public internet.
 - Public IP 203.0.113.42 belongs to the ISP and is used for outbound traffic unless the host is behind a VPN or additional NAT.
 ```
-
-**Tip:** When documenting IPs in a public repo, replace real public IPs with placeholders or only show ranges to avoid revealing your network.
-
----
 
 ## Useful Commands & Output Examples
 
@@ -208,13 +169,6 @@ Describe small, shareable exercises with objective, steps, and expected results.
 
 ---
 
-## Automation & Scripts
-
-List any helper scripts you use (VM snapshot helpers, environment reset, evidence collection).
-
-**Example:** `reset_lab.sh` — shuts down all lab VMs and restores snapshots. Keep scripts idempotent and safe.
-
----
 
 ## Security, Ethics & Safety
 
@@ -224,36 +178,5 @@ Short policy to include in the README:
 - No distribution of live malware, exploit payloads, or private credentials.
 - Follow responsible disclosure if any vulnerabilities discovered on third-party systems by mistake.
 
----
-
-## References & Tools
-
-Add links to official project pages and tool docs (Kali, REMnux, Metasploitable, Nmap, Metasploit, ELK, Suricata, YARA, Volatility, Ghidra).
 
 ---
-
-## Example CONTRIBUTING.md (short)
-
-If you'd like others to help maintain sanitized lab writeups, include a short contributing guide describing how to sanitize outputs and where to add content.
-
----
-
-## License
-
-Choose a license (MIT is a common permissive choice) and include a `LICENSE` file in the repo.
-
----
-
-## Final Notes & Next Steps
-
-- Add a `network-diagram.png` or draw.io export to the repo to visualize topology.
-- Add 2–3 polished writeups (one exploitation, one malware analysis, one detection) as showcase pieces.
-- Keep a `CHANGELOG.md` for major lab updates and snapshots.
-
----
-
-**If you want, I can:**
-- Produce a ready-to-paste `network-diagram` ASCII or draw.io template.
-- Generate 2–3 polished writeups (exploit + REMnux analysis + Suricata rule) that you can add to the repo — say which exercise you want first.
-
-
